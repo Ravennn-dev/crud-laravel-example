@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 35px;
+            border-radius: 10px;
+            width: 500px;
+            box-shadow: 0 0 10px
+        }
+        input {
+            width: 95%;
+            padding: 8px;
+            margin-bottom: 10px;
+            margin-top: 4px;
+            border-radius: 10px;
+        }
+        button {
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            background: #333;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .success {
+            color: green;
+            margin-bottom: 10px;
+        }
+    </style>
+    <script>
+        function enableEdit() {
+            document.querySelectorAll('input').forEach(input => input.removeAttribute('readonly'));
+            document.getElementById('saveBtn').disabled = false;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome, {{ $user->name }}</h2>
+        
+
+        @if (session('success'))
+            <div class="success">{{ session('success') }}</div>
+        @endif
+
+        <form method="POST" action="{{ route('dashboard.update') }}">
+            @csrf
+            <label>Name</label>
+            <input type="text" name="name" value="{{ $user->name }}" readonly>
+
+            <label>Username</label>
+            <input type="text" name="username" value="{{ $user->username }}" readonly>
+
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Leave blank to keep current" readonly>
+
+            <button type="button" onclick="enableEdit()">Edit</button>
+            <button type="submit" id="saveBtn" disabled>Save</button>
+        </form>
+
+        <form method="POST" action="/logout" style="margin-top: 15px;">
+            @csrf
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+</body>
+</html>
