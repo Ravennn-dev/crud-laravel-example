@@ -7,6 +7,8 @@
 
     <title>CRUD sample -raven</title>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
     <style>
         body {
             display: flex;
@@ -29,9 +31,11 @@
         input {
             display: block;
             width: 100%;
-            margin: 5px 0;
+            margin: 5px px;
+            margin-bottom: 10px;
             padding: 4px;
             font-size: 16px;
+            border-radius: 10px;
         }
 
         button {
@@ -53,6 +57,7 @@
 </head>
 
 <body style="display: flex; flex-direction: column; ">
+
     <div class="form-container">
         <h2>Register</h2>
         <form action="/register" method="POST">
@@ -63,19 +68,7 @@
             <button type="submit">Register</button>
         </form>
     </div>
-    
-    <div style="text-align: center;">
-        @auth
-        <p>Congrats you are registered.</p>
-
-        <form action="/logout" method="POST">
-            @csrf
-            <button>Logout</button>
-        </form>
-
-        @endauth
-    </div>
 
 </body>
 
-</html>
+</html> 

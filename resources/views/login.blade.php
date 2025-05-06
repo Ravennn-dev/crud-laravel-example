@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
     <style>
         body {
@@ -28,8 +29,10 @@
             display: block;
             width: 100%;
             margin: 5px 0;
+            margin-bottom: 10px;
             padding: 4px;
             font-size: 16px;
+            border-radius: 10px;
         }
 
         button {
@@ -49,15 +52,20 @@
     </style>
 </head>
 <body>
+    @if (Session::has('user_registered'))
+        <script>
+            swal("Success!", "{{ Session::get('user_registered') }}", "success", {
+                button: "OK",
+            });
+        </script>
+    @endif
+
     <div class="form-container">
         <h2>Login</h2>
         <form action="/login" method="POST">
             @csrf
             <input name="username" type="text" placeholder="Username" required>
             <input name="password" type="password" placeholder="Password" required>
-            @error('password')
-                <div class="error-message">{{ $message }}</div>
-            @enderror
             <button type="submit">Log In</button>
         </form>
     </div>

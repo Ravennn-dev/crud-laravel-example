@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -51,9 +53,12 @@
     <div class="container">
         <h2>Welcome, {{ $user->name }}</h2>
         
-
-        @if (session('success'))
-            <div class="success">{{ session('success') }}</div>
+        @if (Session::has('user_loggedin'))
+            <script>
+                swal("Success!", "{{ Session::get('user_loggedin') }}", "success", {
+                    button: "OK",
+                });
+            </script>
         @endif
 
         <form method="POST" action="{{ route('dashboard.update') }}">
