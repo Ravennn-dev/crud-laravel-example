@@ -15,6 +15,7 @@
             margin: 0;
             background-color: #f9f9f9;
             font-family: Arial, sans-serif;
+            background-color: #27548A;
         }
 
         .form-container {
@@ -44,6 +45,10 @@
             cursor: pointer;
             margin-top: 10px;
             border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #27548A;
         }
 
         h2 {

@@ -16,7 +16,7 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f9f9f9;
+            background-color: #27548A;
             font-family: Arial, sans-serif;
         }
 
@@ -26,6 +26,7 @@
             background-color: #fff;
             border-radius: 10px;
             text-align: center;
+            box-shadow: inset;
         }
 
         input {
@@ -49,6 +50,10 @@
             border-radius: 4px;
         }
 
+        button:hover {
+            background-color: #27548A;
+        }
+
         h2 {
             margin-bottom: 20px;
         }
@@ -57,6 +62,14 @@
 </head>
 
 <body style="display: flex; flex-direction: column; ">
+
+    @if (Session::has('accountDeleted'))
+        <script>
+            swal("Deleted!", "{{ Session::get('accountDeleted') }}", "success", {
+                button: "OK",
+            });
+        </script>
+    @endif
 
     <div class="form-container">
         <h2>Register</h2>

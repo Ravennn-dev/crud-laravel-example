@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: #f9f9f9;
+            background: #27548A;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -37,6 +37,11 @@
             cursor: pointer;
             border-radius: 5px;
         }
+
+        button:hover {
+            background-color: #27548A;
+        }
+
         .success {
             color: green;
             margin-bottom: 10px;
@@ -61,7 +66,7 @@
             </script>
         @endif
 
-        <form method="POST" action="{{ route('dashboard.update') }}">
+        <form method="POST" action="{{ route('dashboard.update') }}" onsubmit="return confirm('Are you sure you want to save changes?');">
             @csrf
             <label>Name</label>
             <input type="text" name="name" value="{{ $user->name }}" readonly>
@@ -72,8 +77,21 @@
             <label>Password</label>
             <input type="password" name="password" placeholder="Leave blank to keep current" readonly>
 
-            <button type="button" onclick="enableEdit()">Edit</button>
+            <button type="button" onclick="enableEdit()" >Edit</button>
             <button type="submit" id="saveBtn" disabled>Save</button>
+        </form>
+
+        @if (Session::has('updateSuccess'))
+            <script>
+                swal("Success!", "{{ Session::get('user_loggedin') }}", "success", {
+                    button: "OK",
+                });
+            </script>
+        @endif
+
+        <form method="POST" action="{{ route('user.delete') }}" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
+            @csrf
+            <button type="submit">Delete Account</button>
         </form>
 
         <form method="POST" action="/logout" style="margin-top: 15px;">

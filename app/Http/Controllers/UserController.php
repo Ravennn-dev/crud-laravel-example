@@ -12,7 +12,7 @@ class UserController extends Controller
     {
         $incomingFields = $request->validate([
             'name' => ['required', 'max:50'],
-            'username' => ['required', 'min:5', 'max:12', 'unique:users'],
+            'username' => ['required', 'min:4', 'max:12', 'unique:users'],
             'password' => ['required']
         ]);
 
@@ -54,7 +54,7 @@ class UserController extends Controller
 
         $validated = $request->validate([
             'name' => ['required', 'max:50'],
-            'username' => ['required', 'min:5', 'max:12', 'unique:users,username,' . $user->id],
+            'username' => ['required', 'min:4', 'max:12', 'unique:users,username,' . $user->id],
             'password' => ['nullable', 'min:6']
         ]);
 
@@ -68,6 +68,24 @@ class UserController extends Controller
         /** @var \App\Models\User $user **/
         $user->save();
 
-        return back()->with('success', 'Profile updated!');
+        return back()->with('updateSuccess', 'Information updated!');
     }
+
+    public function deleteUser(Request $request)
+{
+    $user = auth()->user();
+
+    // Logout the user
+    auth()->logout();
+
+    /** @var \App\Models\User $user **/
+    // Delete the user
+    $user->delete();
+
+    // Invalidate the session
+    $request->session()->invalidate();
+
+    // Redirect to register
+    return redirect('/')->with('accountDeleted', 'Your account has been deleted.');
+}
 }
